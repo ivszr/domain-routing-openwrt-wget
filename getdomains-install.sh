@@ -443,11 +443,11 @@ add_dns_resolver() {
 }
 
 add_packages() {
-    if opkg list-installed | grep -q "curl -"; then
-        printf "\033[32;1mCurl already installed\033[0m\n"
+    if opkg list-installed | grep -q "wget-ssl -"; then
+        printf "\033[32;1mWget already installed\033[0m\n"
     else
-        printf "\033[32;1mInstall curl\033[0m\n"
-        opkg install curl
+        printf "\033[32;1mInstall wget-ssl\033[0m\n"
+        opkg install wget-ssl
     fi
 
     if opkg list-installed | grep -q nano; then
@@ -519,8 +519,8 @@ EOF
 cat << 'EOF' >> /etc/init.d/getdomains
     count=0
     while true; do
-        if curl -m 3 github.com; then
-            curl -f $DOMAINS --output /tmp/dnsmasq.d/domains.lst
+        if wget --spider -q https://www.github.com;; then
+            wget $DOMAINS -O /tmp/dnsmasq.d/domains.lst
             break
         else
             echo "GitHub is not available. Check the internet availability [$count]"
