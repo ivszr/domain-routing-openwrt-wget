@@ -34,7 +34,7 @@ fi
 
 # Check packages
 CURL=$(opkg list-installed | grep -c curl)
-if [ $CURL -eq 2 ]; then
+if [ $CURL -eq 1 ]; then
     checkpoint_true "Curl package"
 else
     checkpoint_false "Curl package"
