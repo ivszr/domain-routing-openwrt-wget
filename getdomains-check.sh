@@ -33,12 +33,12 @@ then
 fi
 
 # Check packages
-CURL=$(opkg list-installed | grep -c curl)
-if [ $CURL -eq 2 ]; then
-    checkpoint_true "Curl package"
+WGET=$(opkg list-installed | grep -c wget-ssl)
+if [ $WGET -eq 2 ]; then
+    checkpoint_true "Wget package"
 else
-    checkpoint_false "Curl package"
-    echo "Install: opkg install curl"
+    checkpoint_false "Wget package"
+    echo "Install: opkg install wget-ssl"
 fi
 
 DNSMASQ=$(opkg list-installed | grep dnsmasq-full | awk -F "-" '{print $3}' | tr -d '.' )
@@ -76,21 +76,22 @@ fi
 
 
 # Check internet connection
-if curl -Is https://community.antifilter.download/ | grep -q 200; then
+if wget --spider -S "https://community.antifilter.download/" 2>&1 |
+ grep "HTTP/" | awk '{print $2}' | grep -q 200; then
     checkpoint_true "Check Internet"
     else
     checkpoint_false "Check Internet"
-    if [ $CURL -lt 2 ]; then
-        echo "Install curl: opkg install curl"
+    if [ $WGET -lt 2 ]; then
+        echo "Install wget: opkg install wget-ssl"
     else
         echo "Check internet connection. If ok, check date on router. Details: https://cli.co/2EaW4rO"
-        echo "For more info run: curl -Is https://community.antifilter.download/"
+        echo "For more info run: wget --spider -S "https://community.antifilter.download/" 2>&1"
     fi
 fi
 
 # Check IPv6
 
-if curl -6 -s https://ifconfig.io | egrep -q "(::)?[0-9a-fA-F]{1,4}(::?[0-9a-fA-F]{1,4}){1,7}(::)?"; then
+if wget -q -6 -O - https://ifconfig.io | egrep -q "(::)?[0-9a-fA-F]{1,4}(::?[0-9a-fA-F]{1,4}){1,7}(::)?"; then
     checkpoint_false "IPv6 detected. This script does not currently work with IPv6"
 fi
 
@@ -192,10 +193,10 @@ if opkg list-installed | grep -q sing-box; then
     fi    
 
     # Check traffic
-    IP_EXTERNAL=$(curl -s ifconfig.me)
+    IP_EXTERNAL=$(wget -q -O - https://ifconfig.me)
     IFCONFIG=$(nslookup -type=a ifconfig.me | awk '/^Address: / {print $2}')
 
-    IP_VPN=$(curl --interface tun0 -s ifconfig.me)
+    IP_VPN=$(curl --interface tun0 -s ifconfig.me) 
 
     if [ "$IP_EXTERNAL" != $IP_VPN ]; then
         checkpoint_true "Sing-box. VPN IP: $IP_VPN"
