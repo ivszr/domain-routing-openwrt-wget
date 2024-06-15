@@ -34,7 +34,7 @@ fi
 
 # Check packages
 WGET=$(opkg list-installed | grep -c wget-ssl)
-if [ $WGET -eq 2 ]; then
+if [ $WGET -eq 1 ]; then
     checkpoint_true "Wget package"
 else
     checkpoint_false "Wget package"
