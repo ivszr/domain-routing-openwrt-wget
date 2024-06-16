@@ -1,37 +1,37 @@
 [English role README](https://github.com/itdoginfo/domain-routing-openwrt/blob/master/README.EN.md)
-
+# Это форк, с частисным переписыванием на wget. Работает не всё, так как я ленив.
 # Описание
 Shell скрипт и [роль для Ansible](https://galaxy.ansible.com/ui/standalone/roles/itdoginfo/domain_routing_openwrt). Автоматизируют настройку роутера на OpenWrt для роутинга по доменам и спискам IP-адресов.
 
 Полное описание происходящего:
 - [Статья на хабре](https://habr.com/ru/articles/767464/)
-- [Копия в моём блоге](https://itdog.info/tochechnyj-obhod-blokirovok-po-domenam-na-routere-s-openwrt/)
+- [Копия в блоге itdog](https://itdog.info/tochechnyj-obhod-blokirovok-po-domenam-na-routere-s-openwrt/)
 
 # Скрипт для установки
 ```
-sh <(wget -O - https://raw.githubusercontent.com/itdoginfo/domain-routing-openwrt/master/getdomains-install.sh)
+sh <(wget -O - https://raw.githubusercontent.com/ivszr/domain-routing-openwrt/master/getdomains-install.sh)
 ```
 
 ## Скрипт для проверки конфигурации
-Написан для OpenWrt 23.05 и 22.03. На 21.02 работает только половина проверок.
+Написан для OpenWrt 23.05, 22.03 и снапшоты. На 21.02 работает только половина проверок.
 
 [x] - не обязательно означает, что эта часть не работает. Но это повод для ручной проверки.
-
+## Скрипт проверки переписан не полностью.
 ### Запуск
 ```
-wget -O - https://raw.githubusercontent.com/itdoginfo/domain-routing-openwrt/master/getdomains-check.sh | sh
+wget -O - https://raw.githubusercontent.com/ivszr/domain-routing-openwrt/master/getdomains-check.sh | sh
 ```
 
 ### Запустить с проверкой на подмену DNS
 ```
-wget -O - https://raw.githubusercontent.com/itdoginfo/domain-routing-openwrt/master/getdomains-check.sh | sh -s dns
+wget -O - https://raw.githubusercontent.com/ivszr/domain-routing-openwrt/master/getdomains-check.sh | sh -s dns
 ```
 
 ### Запустить с созданием dump
 Все чувствительные переменные затираются.
 
 ```
-wget -O - https://raw.githubusercontent.com/itdoginfo/domain-routing-openwrt/master/getdomains-check.sh | sh -s dump
+wget -O - https://raw.githubusercontent.com/ivszr/domain-routing-openwrt/master/getdomains-check.sh | sh -s dump
 ```
 
 Поиск ошибок вручную: https://habr.com/ru/post/702388/
