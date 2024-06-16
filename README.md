@@ -1,5 +1,5 @@
 [English role README](https://github.com/itdoginfo/domain-routing-openwrt/blob/master/README.EN.md)
-# Это форк, с частисным переписыванием на wget. Работает не всё, так как я ленив.
+# Это форк, с частичным переписыванием на wget. Работает не всё, так как я ленив.
 # Описание
 Shell скрипт и [роль для Ansible](https://galaxy.ansible.com/ui/standalone/roles/itdoginfo/domain_routing_openwrt). Автоматизируют настройку роутера на OpenWrt для роутинга по доменам и спискам IP-адресов.
 
