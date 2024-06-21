@@ -519,7 +519,7 @@ EOF
 cat << 'EOF' >> /etc/init.d/getdomains
     count=0
     while true; do
-        if wget --spider -q https://www.github.com;; then
+        if wget --spider -q https://www.github.com; then
             wget $DOMAINS -O /tmp/dnsmasq.d/domains.lst
             break
         else
